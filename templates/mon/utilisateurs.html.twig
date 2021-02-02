@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MonController!{% endblock %}
+{% block title %}Welcome!{% endblock %}
 
 {% block body %}
-
-
+        
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
@@ -49,7 +48,7 @@
   </div>
 </nav>
 <div class="example-wrapper">
-    <h1>Corentin Biosca Groupe L</h1>
+    <h1>Création utilisateurs</h1>
 
 <form>
   <fieldset>
@@ -65,11 +64,21 @@
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
+        <label for="exampleInputName2">Nom</label>
+        <input type="Name" class="form-control" id="exampleInputName2"  placeholder="entrer un Nom">
+      </div>
+    <div class="form-group">
+      <label for="exampleInputName1">prénom</label>
+      <input type="Name" class="form-control" id="exampleInputName1"  placeholder="entrer un prénom">
+    </div>
+    <div class="form-group">
       <label for="exampleInputPassword1">Password</label>
       <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
     </div>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
      </fieldset>
 </form>
   
 </div>
+    
 {% endblock %}
