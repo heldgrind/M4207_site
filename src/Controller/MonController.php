@@ -15,23 +15,12 @@ class MonController extends AbstractController
     public function index(Request $request, EntityManagerInterface $manager): Response
     {
 
-        $Login= $request->request->get('email');
-        $Pass= $request->request->get('password');
-
-        $utilisateur = $manager ->getRepository(utilisateurs::class)->findOneBy(array('email'=> $Login));
-
-
-        if ($utilisateur!= NUll){
-            return $this->render('mon/login_result.html.twig', [
-                'controller_name' => 'connexion réussi',
-                'login' => $Login,
-            ]);
-        }
-        else{
+        
+        
             return $this->render('mon/index.html.twig', [
                 'controller_name' => 'echec de connexion',
             ]);
-        }
+        
         
     }
     /**
@@ -45,15 +34,25 @@ class MonController extends AbstractController
         ]);
     }
      /**
-     * @Route("/login", name="login")
+     * @Route("/login", name="/login")
      */
     public function login(Request $request, EntityManagerInterface $manager): Response
     {
-        
+        $Login= $request->request->get('email');
+        $Pass= $request->request->get('password');
 
+        $utilisateur = $manager ->getRepository(utilisateurs::class)->findOneBy(array('email' => $Login,'password' => $Pass));
+        if($utilisateur != NULL){
             return $this->render('mon/login_result.html.twig', [
                 'controller_name' => 'MonController',
+                'utilisateur' => $utilisateur
+
             ]);
+        }
+        else{
+            return new response("erreur de connexion le mot de passe ou l'email est faux");
+        }
+    
                 
             
         

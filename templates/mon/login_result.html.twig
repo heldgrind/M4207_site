@@ -23,7 +23,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/utilisateurs">Création utilisateurs</a>
+        <a class="nav-link" href="/creation">Création utilisateurs</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Pricing</a>
@@ -49,11 +49,12 @@
   </div>
 </nav>
 <div class="example-wrapper">
-    <h1>Corentin Biosca Groupe L</h1>
+    <h2>Corentin Biosca Groupe L</h2>
 
-<form action="/login" method="POST">
-  <p>ceci est la page après le login</p>
-</form>
+  <p>ceci est la page après le login vous êtes connecter en tant que : </p>
+  <option value="{{utilisateur.id}}"><h3><b>{{utilisateur.nom}} {{utilisateur.prenom}}</b></h3></option> 
+  
+
   
 </div>
 {% endblock %}
