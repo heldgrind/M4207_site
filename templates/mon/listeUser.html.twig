@@ -22,7 +22,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/utilisateurs">Création utilisateurs</a>
+        <a class="nav-link" href="/creation">Création utilisateurs</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Pricing</a>
@@ -48,35 +48,33 @@
   </div>
 </nav>
 <div class="example-wrapper">
-    <h1>Création utilisateurs</h1>
+    <h1>Liste des utilisateurs</h1>
+    <table class="table table-hover">
+    <thead>
+      <br>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nom</th>
+           <th scope="col">Prenom</th>
+          <th scope="col">Mail</th>
+          <th scope="col">MotDePasse</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+    {% for user in listUser %}
+        <tr class="table-active">
+          <th scope="row">{{ user.id }}</th>
+          <th scope="row">{{ user.Nom }}</th>
+          <td>{{ user.Prenom}}</td>
+          <td>{{ user.Email }}</td>
+          <td>{{ user.Password }}</td>
+        </tr>
+    {% endfor %}
+      </tbody>
+    </table>
 
-<form method="POST" action="/cUser">
-  <fieldset>
-    <div class="form-group row">
-      <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-      <div class="col-sm-10">
-        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="email@example.com">
-      </div>
-    </div>
-   <div class="form-group">
-        <label for="exampleInputName2">Email</label>
-        <input type="Name" class="form-control" id="email2" name="email2"  placeholder="entrer un mail">
-      </div>
-      <div class="form-group">
-        <label for="exampleInputName2">Nom</label>
-        <input type="Name" class="form-control" id="nom" name="nom"  placeholder="entrer un Nom">
-      </div>
-    <div class="form-group">
-      <label for="exampleInputName1">prénom</label>
-      <input type="Name" class="form-control" id="prenom" name="prenom"  placeholder="entrer un prénom">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-primary">Envoyer</button>
-     </fieldset>
-</form>
+
   
 </div>
     
