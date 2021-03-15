@@ -7,18 +7,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class MonController extends AbstractController
 {
     /**
      * @Route("/mon", name="mon")
      */
-    public function index(Request $request, EntityManagerInterface $manager): Response
+    public function index(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
 
-        
+            
         
             return $this->render('mon/index.html.twig', [
-                'controller_name' => 'echec de connexion',
+                'controller_name' => 'page de Login',
             ]);
         
         
@@ -36,13 +37,16 @@ class MonController extends AbstractController
      /**
      * @Route("/login", name="/login")
      */
-    public function login(Request $request, EntityManagerInterface $manager): Response
+    public function login(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
         $Login= $request->request->get('email');
         $Pass= $request->request->get('password');
 
         $utilisateur = $manager ->getRepository(utilisateurs::class)->findOneBy(array('email' => $Login,'password' => $Pass));
         if($utilisateur != NULL){
+            $val =$utilisateur->getid();
+            $session->set('userid',$val);
+            
             return $this->render('mon/login_result.html.twig', [
                 'controller_name' => 'MonController',
                 'utilisateur' => $utilisateur
@@ -50,7 +54,9 @@ class MonController extends AbstractController
             ]);
         }
         else{
+            $session->set('userid',-1);
             return new response("erreur de connexion le mot de passe ou l'email est faux");
+            
         }
     
                 
@@ -86,13 +92,34 @@ class MonController extends AbstractController
     /**
      * @Route("/listeUser", name="listeUser")
      */
-    public function liste(Request $request, EntityManagerInterface $manager): Response
+    public function liste(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
-            $listUser=$manager->getRepository(Utilisateurs::class)->findAll();
+            $userid=$session->get('userid');
+            if ($userid>0){
+                $listUser=$manager->getRepository(Utilisateurs::class)->findAll();
 
             return $this->render('mon/listeUser.html.twig', [
                 'listUser' => $listUser
             ]);
+            }
+            else{
+                return new Response("erreur de connexion vous n'êtes pas connecté");
+            }
+            
+                
+            
+        
+        
+    }
+    
+    /**
+     * @Route("/deconnexion", name="deconnexion")
+     */
+    public function deconnexion(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
+    {
+            $session->clear();
+            return $this->redirectToRoute('mon');
+            
                 
             
         
