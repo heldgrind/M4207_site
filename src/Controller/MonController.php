@@ -15,19 +15,28 @@ class MonController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
+        $vs=$session->get('userid');
 
-            
-        
-            return $this->render('mon/index.html.twig', [
-                'controller_name' => 'page de Login',
-            ]);
+            if($vs == 0){
+                return $this->render('mon/index.html.twig', [
+                    'controller_name' => 'page de Login',
+                ]);
+            }
+            else{
+                $utilisateur = $manager ->getRepository(utilisateurs::class)->findOneBy(array('id' => $vs));
+                return $this->render('mon/login_result.html.twig', [
+                    'controller_name' => 'MonController',
+                    'utilisateur' => $utilisateur
+    
+                ]);
+            }
         
         
     }
     /**
      * @Route("/creation", name="creation")
      */
-    public function utilisateurs(Request $request, EntityManagerInterface $manager): Response
+    public function utilisateurs(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
 
         return $this->render('mon/utilisateurs.html.twig', [
@@ -46,7 +55,6 @@ class MonController extends AbstractController
         if($utilisateur != NULL){
             $val =$utilisateur->getid();
             $session->set('userid',$val);
-            
             return $this->render('mon/login_result.html.twig', [
                 'controller_name' => 'MonController',
                 'utilisateur' => $utilisateur
@@ -54,20 +62,16 @@ class MonController extends AbstractController
             ]);
         }
         else{
-            $session->set('userid',-1);
-            return new response("erreur de connexion le mot de passe ou l'email est faux");
+            $session->set('userid',0);
+            return $this->redirectToRoute('mon');
             
         }
-    
-                
-            
-        
-        
     }
+
     /**
      * @Route("/cUser", name="cUser")
      */
-    public function creation(Request $request, EntityManagerInterface $manager): Response
+    public function creation(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
         $recupNom=$request->request->get('nom');
         $recupPrenom=$request->request->get('prenom');
