@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MonController!{% endblock %}
+
+{% block body %}
+
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/mon">Login
+          <span class="sr-only">(current)</span>
+        </a>
+</nav>
+<div class="example-wrapper">
+    <h1>ajout de fichier</h1>
+
+<form action="/ajoutfichier" method="POST" enctype="multipart/form-data">
+  <fieldset>
+    <div class="form-group">
+      <label for="exampleInputName2">Fichier</label>
+      <input type="file" class="form-control" id="fichier" name="fichier"  placeholder="entrer un fichier">
+    </div>
+     </fieldset>
+     <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
+  
+</div>
+{% endblock %}

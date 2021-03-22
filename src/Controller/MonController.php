@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 use App\Entity\Utilisateurs;
+use App\Entity\Acces;
+use App\Entity\Documents;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -87,11 +89,7 @@ class MonController extends AbstractController
 		$manager->flush();
 
             
-        return $this->redirectToRoute('listeUser');
-                
-            
-        
-        
+        return $this->redirectToRoute('listeUser');   
     }
     /**
      * @Route("/listeUser", name="listeUser")
@@ -122,12 +120,25 @@ class MonController extends AbstractController
     public function deconnexion(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
             $session->clear();
-            return $this->redirectToRoute('mon');
-            
-                
-            
-        
-        
+            return $this->redirectToRoute('mon');  
+    }
+    /**
+     * @Route("/fichier", name="fichier")
+     */
+    public function fichier(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
+    {
+        return $this->render('mon/formFichier.html.twig', [
+        ]);
+    }
+    /**
+     * @Route("/ajoutfichier", name="ajoutfichier")
+     */
+    public function ajoutfichier(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
+    {
+        $chemin='C:\xampp\htdocs\M4207_site\fichier';
+        $nom=$_FILES(['fichier']['nom']);
+        $nomtmp=$_FILES['fichier']['tmp_name'];
+
     }
 
 }
