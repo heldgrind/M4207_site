@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\Utilisateurs;
 use App\Entity\Acces;
+use App\Entity\Authorisation;
 use App\Entity\Documents;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ class MonController extends AbstractController
                 ]);
             }
             else{
-                $utilisateur = $manager ->getRepository(utilisateurs::class)->findOneBy(array('id' => $vs));
+                $utilisateur = $manager ->getRepository(Utilisateurs::class)->findOneBy(array('id' => $vs));
                 return $this->render('mon/login_result.html.twig', [
                     'controller_name' => 'MonController',
                     'utilisateur' => $utilisateur
@@ -136,9 +137,42 @@ class MonController extends AbstractController
     public function ajoutfichier(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
         $chemin='C:\xampp\htdocs\M4207_site\fichier';
-        $nom=$_FILES(['fichier']['nom']);
+        $nom=$_FILES['fichier']['name'];
         $nomtmp=$_FILES['fichier']['tmp_name'];
+        $dest=$chemin.'/'.basename($_FILES['fichier']['name']);
 
+        //création document
+        $Doc = new Documents();
+		$Doc->setChemin($dest);
+        $Doc->setDate(new \DateTime("now"));
+        $Doc->setActif(1);
+
+        $manager->persist($Doc);
+		$manager->flush();
+        return $this->redirectToRoute('listFichier');
+
+    }
+    /**
+     * @Route("/listFichier", name="listFichier")
+     */
+    public function listeFichier(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
+    {
+            $userid=$session->get('userid');
+            if ($userid>0){
+                $listFichier=$manager->getRepository(Documents::class)->findAll();
+
+            return $this->render('mon/listFichier.html.twig', [
+                'listFichier' => $listFichier
+            ]);
+            }
+            else{
+                return new Response("erreur de connexion vous n'êtes pas connecté");
+            }
+            
+                
+            
+        
+        
     }
 
 }

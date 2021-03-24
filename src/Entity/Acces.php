@@ -18,22 +18,22 @@ class Acces
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=utilisateurs::class, inversedBy="acces")
+     * @ORM\ManyToOne(targetEntity=Utilisateurs::class, inversedBy="acces")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $utilisateurs;
+    private $Utilisateurs;
 
     /**
-     * @ORM\ManyToOne(targetEntity=authorisation::class, inversedBy="acces")
+     * @ORM\ManyToOne(targetEntity=Authorisation::class, inversedBy="acces")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $authorisation;
+    private $Authorisation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=documents::class, inversedBy="acces")
+     * @ORM\ManyToOne(targetEntity=Documents::class, inversedBy="acces")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $documents;
+    private $Documents;
 
     public function getId(): ?int
     {

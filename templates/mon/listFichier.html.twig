@@ -30,15 +30,8 @@
       <li class="nav-item">
         <a class="nav-link" href="/listFichier">Liste Fichier</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link" href="/fichier">Ajouter Fichier</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -48,27 +41,23 @@
   </div>
 </nav>
 <div class="example-wrapper">
-    <h1>Liste des utilisateurs</h1>
+    <h1>Liste des Fichiers</h1>
     <table class="table table-hover">
     <thead>
       <br>
         <tr>
           <th scope="col">Id</th>
-          <th scope="col">Nom</th>
-           <th scope="col">Prenom</th>
-          <th scope="col">Mail</th>
-          <th scope="col">MotDePasse</th>
+          <th scope="col">chemin</th>
+           <th scope="col">date</th>
          
         </tr>
       </thead>
       <tbody>
-    {% for user in listUser %}
+    {% for fichier in listFichier %}
         <tr class="table-active">
-          <th scope="row">{{ user.id }}</th>
-          <th scope="row">{{ user.Nom }}</th>
-          <td>{{ user.Prenom}}</td>
-          <td>{{ user.Email }}</td>
-          <td>{{ user.Password }}</td>
+          <th scope="row">{{ fichier.id }}</th>
+          <th scope="row">{{ fichier.chemin }}</th>
+          <td>{{ fichier.date}}</td>
         </tr>
     {% endfor %}
       </tbody>

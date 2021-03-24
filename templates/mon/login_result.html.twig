@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MonController!{% endblock %}
+{% block title %}Welcome!{% endblock %}
 
 {% block body %}
-
-
+        
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
@@ -18,31 +17,21 @@
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/deconnexion">deconnexion</a>
+        <li class="nav-item">
+          <a class="nav-link" href="/deconnexion">Déconnexion</a>
+        </li>
+        <a class="nav-link" href="/mon">Login
           <span class="sr-only">(current)</span>
         </a>
-        <li class="nav-item">
-          <a class="nav-link" href="/mon">Login</a>
-        </li>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/listeUser">Liste utilisateur</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link" href="/listFichier">Liste Fichier</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
-        </div>
+        <a class="nav-link" href="/fichier">Ajout fichier</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
