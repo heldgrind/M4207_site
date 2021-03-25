@@ -136,20 +136,23 @@ class MonController extends AbstractController
      */
     public function ajoutfichier(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
-        $chemin='C:\xampp\htdocs\M4207_site\fichier';
+        $chemin='C:\xampp\htdocs\M4207_site\public';
         $nom=$_FILES['fichier']['name'];
         $nomtmp=$_FILES['fichier']['tmp_name'];
-        $dest=$chemin.'/'.basename($_FILES['fichier']['name']);
-
+        $dest=$chemin.'\\'.basename($_FILES['fichier']['name']);
+        $resultat=move_uploaded_file($_FILES['fichier']['tmp_name'],$dest);
         //création document
         $Doc = new Documents();
 		$Doc->setChemin($dest);
-        $Doc->setDate(new \DateTime("now"));
+        $date = new \DateTime('NOW');
+        $Doc->setDate($date);
         $Doc->setActif(1);
 
         $manager->persist($Doc);
 		$manager->flush();
         return $this->redirectToRoute('listFichier');
+
+
 
     }
     /**

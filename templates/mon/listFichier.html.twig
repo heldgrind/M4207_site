@@ -57,7 +57,7 @@
         <tr class="table-active">
           <th scope="row">{{ fichier.id }}</th>
           <th scope="row">{{ fichier.chemin }}</th>
-          <td>{{ fichier.date}}</td>
+          <th scope="row">{{ fichier.date.format("d/m/Y")}}</th>
         </tr>
     {% endfor %}
       </tbody>
