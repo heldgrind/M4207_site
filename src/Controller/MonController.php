@@ -53,9 +53,11 @@ class MonController extends AbstractController
     {
         $Login= $request->request->get('email');
         $Pass= $request->request->get('password');
+        $utilisateur = $manager ->getRepository(Utilisateurs::class)->findOneBy(array('email' => $Login));
+        $Pass2=$utilisateur->getPassword();
+        $Verif=password_verify($Pass,$Pass2);
 
-        $utilisateur = $manager ->getRepository(utilisateurs::class)->findOneBy(array('email' => $Login,'password' => $Pass));
-        if($utilisateur != NULL){
+        if($Verif == TRUE){
             $val =$utilisateur->getid();
             $session->set('userid',$val);
             return $this->render('mon/login_result.html.twig', [
@@ -80,12 +82,13 @@ class MonController extends AbstractController
         $recupPrenom=$request->request->get('prenom');
         $recupEmail=$request->request->get('email2');
         $recupPassword=$request->request->get('password');
+        $PassCrypt=password_hash($recupPassword,PASSWORD_DEFAULT);
         
         $User = new Utilisateurs();
 		$User->setNom($recupNom);
 		$User->setPrenom($recupPrenom);
         $User->setEmail($recupEmail);
-        $User->setPassword($recupPassword);
+        $User->setPassword($PassCrypt);
         $manager->persist($User);
 		$manager->flush();
 
@@ -141,6 +144,7 @@ class MonController extends AbstractController
         $nomtmp=$_FILES['fichier']['tmp_name'];
         $dest=$chemin.'\\'.basename($_FILES['fichier']['name']);
         $resultat=move_uploaded_file($_FILES['fichier']['tmp_name'],$dest);
+
         //création document
         $Doc = new Documents();
 		$Doc->setChemin($dest);
@@ -150,10 +154,17 @@ class MonController extends AbstractController
 
         $manager->persist($Doc);
 		$manager->flush();
+        
+        
+        //mise en place auth
+       /*
+        $Auth= new Authorisation();
+        $Auth->setLecture(1);
+        $Auth->setEcriture(1);
+        $manager->persist($Auth);
+        $manager->flush();
+        */
         return $this->redirectToRoute('listFichier');
-
-
-
     }
     /**
      * @Route("/listFichier", name="listFichier")
