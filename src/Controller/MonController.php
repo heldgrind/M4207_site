@@ -56,7 +56,7 @@ class MonController extends AbstractController
         $utilisateur = $manager ->getRepository(Utilisateurs::class)->findOneBy(array('email' => $Login));
         $Pass2=$utilisateur->getPassword();
         $Verif=password_verify($Pass,$Pass2);
-
+        //vérification mot de passe 
         if($Verif == TRUE){
             $val =$utilisateur->getid();
             $session->set('userid',$val);
@@ -111,11 +111,6 @@ class MonController extends AbstractController
             else{
                 return new Response("erreur de connexion vous n'êtes pas connecté");
             }
-            
-                
-            
-        
-        
     }
     
     /**
@@ -139,7 +134,7 @@ class MonController extends AbstractController
      */
     public function ajoutfichier(Request $request, EntityManagerInterface $manager,SessionInterface $session): Response
     {
-        $chemin='C:\xampp\htdocs\M4207_site\public';
+        $chemin='C:\wamp64\www\M4207_site\public';
         $nom=$_FILES['fichier']['name'];
         $nomtmp=$_FILES['fichier']['tmp_name'];
         $dest=$chemin.'\\'.basename($_FILES['fichier']['name']);
@@ -157,13 +152,8 @@ class MonController extends AbstractController
         
         
         //mise en place auth
-       /*
-        $Auth= new Authorisation();
-        $Auth->setLecture(1);
-        $Auth->setEcriture(1);
-        $manager->persist($Auth);
-        $manager->flush();
-        */
+       
+       
         return $this->redirectToRoute('listFichier');
     }
     /**
